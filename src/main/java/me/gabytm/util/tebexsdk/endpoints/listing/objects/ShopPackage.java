@@ -48,25 +48,15 @@ public class ShopPackage {
         return image;
     }
 
+    public int getGuiItem() {
+        return guiItem;
+    }
+
     public boolean isSaleActive() {
         return saleActive;
     }
 
     public double getSaleDiscount() {
         return saleDiscount;
-    }
-
-    @Override
-    public String toString() {
-        return "\n\tPackage @ {" +
-                "\n\t\tid=" + id +
-                ", \n\t\torder=" + order +
-                ", \n\t\tname='" + name + '\'' +
-                ", \n\t\tprice=" + price +
-                ", \n\t\timage='" + image + '\'' +
-                ", \n\t\tguiItem=" + guiItem +
-                ", \n\t\tsaleActive=" + saleActive +
-                ", \n\t\tsaleDiscount=" + saleDiscount +
-                "\n\t}";
     }
 }

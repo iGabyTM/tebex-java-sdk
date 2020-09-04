@@ -20,11 +20,4 @@ public class CheckoutResponse {
         return expirationDate;
     }
 
-    @Override
-    public String toString() {
-        return "CheckoutEndpointResponse{" +
-                "url='" + url + '\'' +
-                ", expirationDate='" + expirationDate + '\'' +
-                '}';
-    }
 }
