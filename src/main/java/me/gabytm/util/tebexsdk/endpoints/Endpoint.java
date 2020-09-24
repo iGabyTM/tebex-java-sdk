@@ -17,7 +17,7 @@ public enum Endpoint {
      */
     COMMAND_QUEUE__QUEUE("queue"),
     COMMAND_QUEUE__OFFLINE_COMMANDS("queue/offline-commands"),
-    COMMAND_QUEUE__ONLINE_COMMANDS("queue/online-commands"),
+    COMMAND_QUEUE__ONLINE_COMMANDS("queue/online-commands/"),
 
     /**
      * @see <a href="https://docs.tebex.io/plugin/endpoints/community-goals">Tebex Documentation</a>

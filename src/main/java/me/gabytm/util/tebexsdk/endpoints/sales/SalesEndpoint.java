@@ -1,10 +1,9 @@
-package me.gabytm.util.tebexsdk.endpoints.listing;
+package me.gabytm.util.tebexsdk.endpoints.sales;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
-import me.gabytm.util.tebexsdk.endpoints.listing.objects.Category;
+import me.gabytm.util.tebexsdk.endpoints.sales.objects.Sale;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
 import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
@@ -17,24 +16,23 @@ import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
-public class ListingEndpoint {
+public class SalesEndpoint {
 
-    private static final Type LIST_OF_CATEGORIES = new TypeToken<List<Category>>(){}.getType();
+    private static final Type LIST_OF_SALES = new TypeToken<List<Sale>>() {}.getType();
 
     /**
-     * Get the categories and packages which should be displayed to players in game.
+     * Return an array of all active sales on your account.
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
-     * @param gson            {@link Gson}
      * @param client          {@link OkHttpClient}
-     * @return list of {@link Category}
+     * @return list of {@link Sale}s
      */
     @NotNull
-    public static TebexResponse<List<Category>> getListing(@NotNull final String serverSecretKey, @NotNull final Gson gson, @NotNull final OkHttpClient client) {
-        final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.LISTING);
+    public static TebexResponse<List<Sale>> getAllSales(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client) {
+        final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.SALES);
 
         try (final Response response = client.newCall(request).execute()) {
-            return Responses.getList(response, LIST_OF_CATEGORIES, "categories");
+            return Responses.getList(response, LIST_OF_SALES);
         } catch (IOException e) {
             e.printStackTrace();
         }

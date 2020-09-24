@@ -1,8 +1,8 @@
-package me.gabytm.util.tebexsdk.endpoints.information;
+package me.gabytm.util.tebexsdk.endpoints.information.objects;
 
 import com.google.gson.JsonObject;
 
-public class InformationResponse {
+public class ServerInfo {
 
     // Account
     private final int accountId;
@@ -18,7 +18,7 @@ public class InformationResponse {
     private final int serverId;
     private final String serverName;
 
-    public InformationResponse(final JsonObject json) {
+    public ServerInfo(final JsonObject json) {
         final JsonObject account = json.getAsJsonObject("account");
 
         this.accountId = account.get("id").getAsInt();

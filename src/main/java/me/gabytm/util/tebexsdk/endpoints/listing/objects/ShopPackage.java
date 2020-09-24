@@ -1,19 +1,18 @@
 package me.gabytm.util.tebexsdk.endpoints.listing.objects;
 
-import com.google.gson.JsonObject;
-
 public class ShopPackage {
 
-    private final int id;
-    private final int order;
-    private final String name;
-    private final double price;
-    private final String image;
-    private final int guiItem;
+    private int id;
+    private int order;
+    private String name;
+    private double price;
+    private String image;
+    private int guiItem;
 
-    private final boolean saleActive;
-    private final double saleDiscount;
+    private boolean saleActive;
+    private double saleDiscount;
 
+    /*
     public ShopPackage(JsonObject json) {
         this.id = json.get("id").getAsInt();
         this.order = json.get("order").getAsInt();
@@ -26,7 +25,7 @@ public class ShopPackage {
 
         this.saleActive = sale.get("active").getAsBoolean();
         this.saleDiscount = sale.get("discount").getAsDouble();
-    }
+    }*/
 
     public int getId() {
         return id;
@@ -58,5 +57,19 @@ public class ShopPackage {
 
     public double getSaleDiscount() {
         return saleDiscount;
+    }
+
+    @Override
+    public String toString() {
+        return "ShopPackage{" +
+                "id=" + id +
+                ", order=" + order +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", guiItem=" + guiItem +
+                ", saleActive=" + saleActive +
+                ", saleDiscount=" + saleDiscount +
+                '}';
     }
 }
