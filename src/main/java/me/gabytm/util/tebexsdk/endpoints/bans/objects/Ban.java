@@ -1,5 +1,9 @@
 package me.gabytm.util.tebexsdk.endpoints.bans.objects;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class Ban {
 
     private int id;

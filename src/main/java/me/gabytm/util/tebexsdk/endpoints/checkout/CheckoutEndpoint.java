@@ -8,11 +8,13 @@ import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
-
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class CheckoutEndpoint {
 
     /**
@@ -23,7 +25,10 @@ public class CheckoutEndpoint {
      * @param packageId       the ID of the package the players want to purchase
      * @param username        the username of the player
      * @return {@link Checkout}
+     * @since 0.0.1-BETA
+     * @see CheckoutEndpoint#createCheckoutURL(String, OkHttpClient, int, String)
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<Checkout> createCheckoutURL(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, final int packageId, @NotNull final String username) {
         final Request request = new Request.Builder()
@@ -37,13 +42,7 @@ public class CheckoutEndpoint {
                 )
                 .build();
 
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getObject(response, Checkout.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getObject(request, client, Checkout.class);
     }
 
 }

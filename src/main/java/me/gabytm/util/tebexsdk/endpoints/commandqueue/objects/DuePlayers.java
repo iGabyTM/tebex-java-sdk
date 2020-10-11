@@ -2,6 +2,10 @@ package me.gabytm.util.tebexsdk.endpoints.commandqueue.objects;
 
 import java.util.List;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class DuePlayers {
 
     private Meta meta;
@@ -15,14 +19,10 @@ public class DuePlayers {
         return players;
     }
 
-    @Override
-    public String toString() {
-        return "DuePlayers @ {" +
-                "meta=" + meta +
-                ", players=" + players +
-                '}';
-    }
-
+    /**
+     * @author GabyTM
+     * @since 0.0.1-BETA
+     */
     public static class Meta {
 
         public boolean executeOffline;
@@ -40,14 +40,6 @@ public class DuePlayers {
         public boolean isMore() {
             return more;
         }
-
-        @Override
-        public String toString() {
-            return "Meta @ {" +
-                    "executeOffline=" + executeOffline +
-                    ", nextCheck=" + nextCheck +
-                    ", more=" + more +
-                    '}';
-        }
     }
+
 }

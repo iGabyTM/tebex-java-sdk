@@ -10,18 +10,20 @@ import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class BansEndpoint {
 
-    private static final Type LIST_OF_BANS = new TypeToken<List<Ban>>() {
-    }.getType();
+    private static final Type LIST_OF_BANS = new TypeToken<List<Ban>>() {}.getType();
 
     /**
      * Returns an array of all bans on your account.
@@ -29,18 +31,14 @@ public class BansEndpoint {
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @return list of {@link Ban}s
+     * @see TebexAPI#getAllBans()
+     * @since 0.0.1-BETA
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<List<Ban>> getAllBans(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.BANS);
-
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getList(response, LIST_OF_BANS, "data");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getList(request, client, LIST_OF_BANS, "data");
     }
 
     /**
@@ -52,7 +50,11 @@ public class BansEndpoint {
      * @param ip              the IP address to also ban
      * @param reason          the reason for the ban
      * @return {@link Ban}
+     * @since 0.0.1-BETA
+     * @see TebexAPI#createBan(String, String, String)
+     * @see TebexAPI#createBan(String) 
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<Ban> createBan(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, @NotNull final String user, @Nullable final String ip, @Nullable final String reason) {
         final FormBody.Builder formBodyBuilder = new FormBody.Builder().add("user", user);
@@ -71,13 +73,7 @@ public class BansEndpoint {
                 .post(formBodyBuilder.build())
                 .build();
 
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getObject(response, Ban.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getObject(request, client, Ban.class);
     }
 
     /**
@@ -87,7 +83,11 @@ public class BansEndpoint {
      * @param client          {@link OkHttpClient}
      * @param user            the username or UUID of the player to ban
      * @return {@link Ban}
+     * @since 0.0.1-BETA
+     * @see TebexAPI#createBan(String)
+     * @see TebexAPI#createBan(String, String, String) 
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<Ban> createBan(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, @NotNull final String user) {
         return createBan(serverSecretKey, client, user, null, null);

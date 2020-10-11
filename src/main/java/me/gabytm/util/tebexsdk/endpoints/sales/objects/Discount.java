@@ -7,6 +7,10 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class Discount {
 
     private DiscountType type;

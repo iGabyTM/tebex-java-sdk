@@ -1,11 +1,13 @@
 package me.gabytm.util.tebexsdk.endpoints.coupons.objects;
 
+import kotlin.Experimental;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Discount;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Effective;
 import me.gabytm.util.tebexsdk.objects.TebexDate;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
 import org.intellij.lang.annotations.MagicConstant;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -17,10 +19,13 @@ public class Coupon {
     public static final int APPLY_TO_BASKED_BEFORE_SALES = 1;
     public static final int APPLY_TO_BASKET_AFTER_SALES = 2;
 
+    private Coupon() {}
+
+    @ApiStatus.Experimental
     public static class Builder {
 
+        private static final Pattern datePattern = Pattern.compile("^\\d{4}-[01]\\d-[0-3]\\d$");
         private final FormBody.Builder formBodyBuilder = new FormBody.Builder();
-        private final Pattern datePattern = Pattern.compile("^\\d{4}-[01]\\d-[0-3]\\d$");
 
         private String code;
         private Effective.EffectiveType effectiveOn;

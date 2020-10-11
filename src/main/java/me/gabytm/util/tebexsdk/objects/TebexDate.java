@@ -2,6 +2,13 @@ package me.gabytm.util.tebexsdk.objects;
 
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * An util class to create a date following the format used by Tebex
+ *
+ * @author GabyTM
+ * @see TebexDate#of(int, Month, int)
+ * @since 0.0.1-BETA
+ */
 public class TebexDate {
 
     private final int year;
@@ -41,25 +48,28 @@ public class TebexDate {
         return this.string;
     }
 
+    /**
+     * An enum representing each month and it's number of days
+     */
     public enum Month {
-        JANUARY("01", 31),
-        FEBRUARY("02", 28),
-        MARCH("03", 31),
-        APRIL("04", 30),
-        MAY("05", 31),
-        JUNE("06", 30),
-        JULY("07", 30),
-        AUGUST("08", 31),
-        SEPTEMBER("09", 30),
-        OCTOBER("10", 31),
-        NOVEMBER("11", 30),
-        DECEMBER("12", 31);
+        JANUARY(31),
+        FEBRUARY(28),
+        MARCH(31),
+        APRIL(30),
+        MAY(31),
+        JUNE(30),
+        JULY(30),
+        AUGUST(31),
+        SEPTEMBER(30),
+        OCTOBER(31),
+        NOVEMBER(30),
+        DECEMBER(31);
 
         private final String order;
         private final int days;
 
-        Month(String order, int days) {
-            this.order = order;
+        Month(int days) {
+            this.order = (ordinal() < 9 ? "0" : "") + (ordinal() + 1);
             this.days = days;
         }
 
@@ -67,6 +77,14 @@ public class TebexDate {
             return order;
         }
 
+        /**
+         * Get the number of days of a month. The year parameter is only used
+         * for {@link Month#FEBRUARY} whose number of days depends if the year is leap (29) or not (28)
+         *
+         * @param year year
+         * @return numbers of days
+         * @see <a href="https://en.wikipedia.org/wiki/Leap_year">Leap Year</a>
+         */
         public int getDays(final int year) {
             return this == FEBRUARY ? (year % 4 == 0 ? 29 : days) : days;
         }

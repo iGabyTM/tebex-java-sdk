@@ -1,82 +1,61 @@
 package me.gabytm.util.tebexsdk.endpoints.communitygoals;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.communitygoals.objects.CommunityGoal;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
 import me.gabytm.util.tebexsdk.utils.Requests;
+import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class CommunityGoalsEndpoint {
+
+    private static final Type LIST_OF_COMMUNITY_GOALS = new TypeToken<List<CommunityGoal>>() {}.getType();
 
     /**
      * Retrieve all community goals created on your account.
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
-     * @param gson            {@link Gson}
      * @param client          {@link OkHttpClient}
      * @return list of {@link CommunityGoal}s
+     * @since 0.0.1-BETA
+     * @see TebexAPI#getAllGoals()
      */
+    @ApiStatus.Internal
     @NotNull
-    public static TebexResponse<List<CommunityGoal>> getAllGoals(final String serverSecretKey, final Gson gson, final OkHttpClient client) {
+    public static TebexResponse<List<CommunityGoal>> getAllGoals(final String serverSecretKey, final OkHttpClient client) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMUNITY_GOALS);
-
-        try (final Response response = client.newCall(request).execute()) {
-            final JsonObject json = gson.fromJson(response.body().charStream(), JsonObject.class);
-
-            if (!response.isSuccessful()) {
-                return TebexResponse.error(json.get("error_message").getAsString());
-            }
-
-            return TebexResponse.of(
-                    Stream.of(json.getAsJsonArray())
-                            .map(JsonElement::getAsJsonObject)
-                            .map(CommunityGoal::new)
-                            .collect(Collectors.toList())
-            );
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getList(request, client, LIST_OF_COMMUNITY_GOALS);
     }
 
     /**
-     * Retrieve all community goals created on your account.
+     * Retrieve an individual community goal on your account
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
-     * @param gson            {@link Gson}
      * @param client          {@link OkHttpClient}
      * @param goalId          the ID of a community goal
      * @return {@link CommunityGoal}
+     * @since 0.0.1-BETA
+     * @see TebexAPI#getGoal(int)
      */
+    @ApiStatus.Internal
     @NotNull
-    public static TebexResponse<CommunityGoal> getGoal(final String serverSecretKey, final Gson gson, final OkHttpClient client, final int goalId) {
+    public static TebexResponse<CommunityGoal> getGoal(final String serverSecretKey, final OkHttpClient client, final int goalId) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMUNITY_GOALS.getUrl() + "/" + goalId);
-
-        try (final Response response = client.newCall(request).execute()) {
-            final JsonObject json = gson.fromJson(response.body().charStream(), JsonObject.class);
-
-            if (!response.isSuccessful()) {
-                return TebexResponse.error(json.get("error_message").getAsString());
-            }
-
-            return TebexResponse.of(new CommunityGoal(json));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getObject(request, client, CommunityGoal.class);
     }
 }

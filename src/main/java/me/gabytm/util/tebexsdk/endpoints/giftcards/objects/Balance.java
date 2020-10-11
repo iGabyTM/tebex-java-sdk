@@ -1,5 +1,9 @@
 package me.gabytm.util.tebexsdk.endpoints.giftcards.objects;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class Balance {
 
     private double starting;
@@ -17,4 +21,5 @@ public class Balance {
     public String getCurrency() {
         return currency;
     }
+
 }

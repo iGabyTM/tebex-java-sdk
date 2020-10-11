@@ -2,6 +2,10 @@ package me.gabytm.util.tebexsdk.endpoints.commandqueue.objects;
 
 import java.util.List;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class OfflineCommands {
 
     private Meta meta;

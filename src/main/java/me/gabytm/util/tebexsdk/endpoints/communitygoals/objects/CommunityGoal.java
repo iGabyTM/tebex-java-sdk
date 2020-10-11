@@ -1,40 +1,25 @@
 package me.gabytm.util.tebexsdk.endpoints.communitygoals.objects;
 
-import com.google.gson.JsonObject;
-
+/**
+ * @author GabyTM
+ * @see 0.0.1-BETA
+ */
 public class CommunityGoal {
 
-    private final int id;
-    private final String createdAt;
-    private final String updatedAt;
-    private final int account;
-    private final String name;
-    private final String description;
-    private final String image;
-    private final double target;
-    private final double current;
-    private final int repeatable;
-    private final String lastAchieved;
-    private final int timesAchieved;
-    private final String status;
-    private final int sale;
-
-    public CommunityGoal(final JsonObject json) {
-        this.id = json.get("id").getAsInt();
-        this.createdAt = json.get("created_at").getAsString();
-        this.updatedAt = json.get("updated_at").getAsString();
-        this.account = json.get("account").getAsInt();
-        this.name = json.get("name").getAsString();
-        this.description = json.get("description").getAsString();
-        this.image = json.get("image").getAsString();
-        this.target = json.get("target").getAsDouble();
-        this.current = json.get("current").getAsDouble();
-        this.repeatable = json.get("repeatable").getAsInt();
-        this.lastAchieved = json.has("last_achieved") ? json.get("last_achieved").getAsString() : null;
-        this.timesAchieved = json.get("times_achieved").getAsInt();
-        this.status = json.get("status").getAsString();
-        this.sale = json.get("sale").getAsInt();
-    }
+    private int id;
+    private String createdAt;
+    private String updatedAt;
+    private int account;
+    private String name;
+    private String description;
+    private String image;
+    private double target;
+    private double current;
+    private int repeatable;
+    private String lastAchieved;
+    private int timesAchieved;
+    private String status;
+    private int sale;
 
     public int getId() {
         return id;
@@ -91,4 +76,5 @@ public class CommunityGoal {
     public int getSale() {
         return sale;
     }
+
 }

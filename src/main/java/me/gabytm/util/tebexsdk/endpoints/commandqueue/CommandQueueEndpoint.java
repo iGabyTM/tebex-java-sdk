@@ -12,7 +12,7 @@ import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
+import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -20,10 +20,13 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class CommandQueueEndpoint {
 
-    private static final Type LIST_OF_COMMANDS = new TypeToken<List<Command>>() {
-    }.getType();
+    private static final Type LIST_OF_COMMANDS = new TypeToken<List<Command>>() {}.getType();
 
     /**
      * List the players who have commands due to be executed when they next login to the game server. This
@@ -39,18 +42,14 @@ public class CommandQueueEndpoint {
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @return {@link DuePlayers}
+     * @since 0.0.1-BETA
+     * @see TebexAPI#getDuePlayers()
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<DuePlayers> getDuePlayers(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMAND_QUEUE__QUEUE);
-
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getObject(response, DuePlayers.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getObject(request, client, DuePlayers.class);
     }
 
     /**
@@ -66,18 +65,14 @@ public class CommandQueueEndpoint {
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @return {@link OfflineCommands}
+     * @since 0.0.1-BETA
+     * @see TebexAPI#getOfflineCommands()
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<OfflineCommands> getOfflineCommands(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMAND_QUEUE__OFFLINE_COMMANDS);
-
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getObject(response, OfflineCommands.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getObject(request, client, OfflineCommands.class);
     }
 
     /**
@@ -90,18 +85,14 @@ public class CommandQueueEndpoint {
      * @param client          {@link OkHttpClient}
      * @param playerId        the ID of the player you want to retrieve the online commands for
      * @return list of {@link Command}s
+     * @since 0.0.1-BETA
+     * @see TebexAPI#getOnlineCommands(int)
      */
+    @ApiStatus.Internal
     @NotNull
     public static TebexResponse<List<Command>> getOnlineCommands(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, final int playerId) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMAND_QUEUE__ONLINE_COMMANDS.getUrl() + playerId);
-
-        try (final Response response = client.newCall(request).execute()) {
-            return Responses.getList(response, LIST_OF_COMMANDS, "commands");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return TebexResponse.empty();
+        return Responses.getList(request, client, LIST_OF_COMMANDS, "commands");
     }
 
     /**
@@ -112,7 +103,10 @@ public class CommandQueueEndpoint {
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @param commands        an array of one or more command IDs to delete
+     * @since 0.0.1-BETA
+     * @see TebexAPI#deleteCommands(int[])
      */
+    @ApiStatus.Internal
     public static void deleteCommands(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, @NotNull int[] commands) {
         if (commands.length == 0) {
             return;
@@ -129,9 +123,7 @@ public class CommandQueueEndpoint {
                 .build();
 
         try {
-            client.newCall(request)
-                    .execute()
-                    .close();
+            client.newCall(request).execute().close();
         } catch (IOException e) {
             e.printStackTrace();
         }

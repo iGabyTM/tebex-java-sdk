@@ -12,12 +12,18 @@ import me.gabytm.util.tebexsdk.endpoints.commandqueue.CommandQueueEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Command;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.DuePlayers;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.OfflineCommands;
+import me.gabytm.util.tebexsdk.endpoints.communitygoals.CommunityGoalsEndpoint;
+import me.gabytm.util.tebexsdk.endpoints.communitygoals.objects.CommunityGoal;
+import me.gabytm.util.tebexsdk.endpoints.giftcards.GiftCardsEndpoint;
+import me.gabytm.util.tebexsdk.endpoints.giftcards.objects.GiftCard;
 import me.gabytm.util.tebexsdk.endpoints.information.InformationEndpoint;
-import me.gabytm.util.tebexsdk.endpoints.information.objects.ServerInfo;
+import me.gabytm.util.tebexsdk.endpoints.information.objects.GeneralInformation;
 import me.gabytm.util.tebexsdk.endpoints.listing.ListingEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.listing.objects.Category;
+import me.gabytm.util.tebexsdk.endpoints.sales.SalesEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Discount;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Effective;
+import me.gabytm.util.tebexsdk.endpoints.sales.objects.Sale;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
@@ -30,14 +36,11 @@ public class TebexAPI {
     public static final String SECRET = "X-Tebex-Secret";
     private static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {
-            }.getType(), new Discount.DiscountTypeDeserializer())
-            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {
-            }.getType(), new Effective.EffectiveTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {}.getType(), new Discount.DiscountTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {}.getType(), new Effective.EffectiveTypeDeserializer())
             .create();
 
     private final String serverSecretKey;
-    private final Gson gson;
     private final OkHttpClient okHttpClient;
 
     /**
@@ -46,13 +49,6 @@ public class TebexAPI {
      */
     public TebexAPI(@NotNull final String serverSecretKey, @Nullable final OkHttpClient okHttpClient) {
         this.serverSecretKey = serverSecretKey;
-        this.gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {
-                }.getType(), new Discount.DiscountTypeDeserializer())
-                .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {
-                }.getType(), new Effective.EffectiveTypeDeserializer())
-                .create();
         this.okHttpClient = okHttpClient == null ? new OkHttpClient().newBuilder().build() : okHttpClient;
     }
 
@@ -82,6 +78,7 @@ public class TebexAPI {
      * Returns an array of all bans on your account.
      *
      * @return list of {@link Ban}s
+     * @see BansEndpoint#getAllBans(String, OkHttpClient)
      */
     @NotNull
     public TebexResponse<List<Ban>> getAllBans() {
@@ -95,6 +92,7 @@ public class TebexAPI {
      * @param ip     the IP address to also ban
      * @param reason the reason for the ban
      * @return {@link Ban}
+     * @see BansEndpoint#createBan(String, OkHttpClient, String, String, String)
      */
     @NotNull
     public TebexResponse<Ban> createBan(@NotNull final String user, @Nullable final String ip, @Nullable final String reason) {
@@ -106,6 +104,7 @@ public class TebexAPI {
      *
      * @param user the username or UUID of the player to ban
      * @return {@link Ban}
+     * @see BansEndpoint#createBan(String, OkHttpClient, String)
      */
     @NotNull
     public TebexResponse<Ban> createBan(@NotNull final String user) {
@@ -113,13 +112,16 @@ public class TebexAPI {
     }
 
     /**
-     * This endpoint returns general information about the authenticated account and server.
+     * Creates a URL which will redirect the player to the webstore and add the package to their basket.
      *
-     * @return {@link ServerInfo}
+     * @param packageId the ID of the package the players want to purchase
+     * @param username  the username of the player
+     * @return {@link Checkout}
+     * @see CheckoutEndpoint#createCheckoutURL(String, OkHttpClient, int, String)
      */
     @NotNull
-    public TebexResponse<ServerInfo> getServerInformation() {
-        return InformationEndpoint.getServerInformation(serverSecretKey, gson, okHttpClient);
+    public TebexResponse<Checkout> createCheckoutURL(final int packageId, @NotNull final String username) {
+        return CheckoutEndpoint.createCheckoutURL(serverSecretKey, okHttpClient, packageId, username);
     }
 
     /**
@@ -134,6 +136,7 @@ public class TebexAPI {
      * etc), and is the value that should be used to replace the <b>{id}</b> placeholder in commands.
      *
      * @return {@link DuePlayers}
+     * @see CommandQueueEndpoint#getDuePlayers(String, OkHttpClient)
      */
     @NotNull
     public TebexResponse<DuePlayers> getDuePlayers() {
@@ -172,24 +175,106 @@ public class TebexAPI {
     }
 
     /**
-     * Get the categories and packages which should be displayed to players in game.
+     * Delete one or more commands which have been executed on the game server.
+     * <br><br>
+     * An empty response with the status code of <b>204 No Content</b> will be returned on completion.
      *
-     * @return {@link ServerInfo}
+     * @param commands an array of one or more command IDs to delete
+     * @see CommandQueueEndpoint#deleteCommands(String, OkHttpClient, int[])
      */
-    @NotNull
-    public TebexResponse<List<Category>> getListing() {
-        return ListingEndpoint.getListing(serverSecretKey, gson, okHttpClient);
+    public void deleteCommands(@NotNull int[] commands) {
+        CommandQueueEndpoint.deleteCommands(serverSecretKey, okHttpClient, commands);
     }
 
     /**
-     * Creates a URL which will redirect the player to the webstore and add the package to their basket.
+     * Retrieve all community goals created on your account.
      *
-     * @param packageId the ID of the package the players want to purchase
-     * @param username  the username of the player
-     * @return {@link Checkout}
+     * @return list of {@link CommunityGoal}s
+     * @see CommunityGoalsEndpoint#getAllGoals(String, OkHttpClient)
      */
     @NotNull
-    public TebexResponse<Checkout> createCheckoutURL(final int packageId, @NotNull final String username) {
-        return CheckoutEndpoint.createCheckoutURL(serverSecretKey, okHttpClient, packageId, username);
+    public TebexResponse<List<CommunityGoal>> getAllGoals() {
+        return CommunityGoalsEndpoint.getAllGoals(serverSecretKey, okHttpClient);
+    }
+
+    /**
+     * Retrieve an individual community goal on your account
+     *
+     * @param goalId the ID of a community goal
+     * @return {@link CommunityGoal}
+     * @see CommunityGoalsEndpoint#getGoal(String, OkHttpClient, int)
+     */
+    @NotNull
+    public TebexResponse<CommunityGoal> getGoal(final int goalId) {
+        return CommunityGoalsEndpoint.getGoal(serverSecretKey, okHttpClient, goalId);
+    }
+
+    /**
+     * Return an array of all gift cards on your account.
+     *
+     * @return list of {@link GiftCard}
+     * @see GiftCardsEndpoint#getAllGiftCards(String, OkHttpClient)
+     */
+    @NotNull
+    public TebexResponse<List<GiftCard>> getAllGiftCards() {
+        return GiftCardsEndpoint.getAllGiftCards(serverSecretKey, okHttpClient);
+    }
+
+    /**
+     * Retrieve a gift card by ID.
+     *
+     * @param id the ID of a gift card
+     * @return {@link GiftCard}
+     * @see GiftCardsEndpoint#getGiftCardById(String, OkHttpClient, int)
+     */
+    @NotNull
+    public TebexResponse<GiftCard> getGiftCardById(final int id) {
+        return GiftCardsEndpoint.getGiftCardById(serverSecretKey, okHttpClient, id);
+    }
+
+    /**
+     * Create a gift card of a specified amount.
+     *
+     * @param amount          the currency value of the gift card should have upon creation
+     * @param note            the note that will be stored against the gift card
+     * @return {@link GiftCard}
+     * @see GiftCardsEndpoint#createGiftCard(String, OkHttpClient, double, String) 
+     * @since 0.0.1-BETA
+     */
+    @NotNull
+    public TebexResponse<GiftCard> createGiftCard(final double amount, @Nullable final String note) {
+        return GiftCardsEndpoint.createGiftCard(serverSecretKey, okHttpClient, amount, note);
+    }
+
+    /**
+     * This endpoint returns general information about the authenticated account and server.
+     *
+     * @return {@link GeneralInformation}
+     */
+    @NotNull
+    public TebexResponse<GeneralInformation> getServerInformation() {
+        return InformationEndpoint.getGeneralInformation(serverSecretKey, okHttpClient);
+    }
+
+    /**
+     * Get the categories and packages which should be displayed to players in game.
+     *
+     * @return {@link GeneralInformation}
+     * @see ListingEndpoint#getListing(String, OkHttpClient) 
+     */
+    @NotNull
+    public TebexResponse<List<Category>> getListing() {
+        return ListingEndpoint.getListing(serverSecretKey, okHttpClient);
+    }
+
+    /**
+     * Return an array of all active sales on your account.
+     *
+     * @return list of {@link Sale}s
+     * @see SalesEndpoint#getAllSales(String, OkHttpClient)
+     */
+    @NotNull
+    public TebexResponse<List<Sale>> getAllSales() {
+        return SalesEndpoint.getAllSales(serverSecretKey, okHttpClient);
     }
 }

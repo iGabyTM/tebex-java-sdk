@@ -1,5 +1,9 @@
 package me.gabytm.util.tebexsdk.endpoints.sales.objects;
 
+/**
+ * @author GabyTM
+ * @since 0.0.1-BETA
+ */
 public class Sale {
 
     private int id;
@@ -32,4 +36,5 @@ public class Sale {
     public int getOrder() {
         return order;
     }
+
 }

@@ -1,14 +1,13 @@
-package me.gabytm.util.tebexsdk.endpoints.commandqueue.objects;
+package me.gabytm.util.tebexsdk.endpoints.information.objects;
 
 /**
  * @author GabyTM
  * @since 0.0.1-BETA
  */
-public class Player {
+public class Server {
 
     private int id;
     private String name;
-    private String uuid;
 
     public int getId() {
         return id;
@@ -16,10 +15,6 @@ public class Player {
 
     public String getName() {
         return name;
-    }
-
-    public String getUuid() {
-        return uuid;
     }
 
 }
