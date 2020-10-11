@@ -1,6 +1,5 @@
 package me.gabytm.util.tebexsdk.endpoints.coupons.objects;
 
-import kotlin.Experimental;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Discount;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Effective;
 import me.gabytm.util.tebexsdk.objects.TebexDate;

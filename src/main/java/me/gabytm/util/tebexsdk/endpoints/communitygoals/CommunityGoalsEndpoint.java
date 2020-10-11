@@ -1,6 +1,5 @@
 package me.gabytm.util.tebexsdk.endpoints.communitygoals;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
@@ -10,11 +9,9 @@ import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 

@@ -2,7 +2,7 @@ package me.gabytm.util.tebexsdk.endpoints.communitygoals.objects;
 
 /**
  * @author GabyTM
- * @see 0.0.1-BETA
+ * @since 0.0.1-BETA
  */
 public class CommunityGoal {
 
