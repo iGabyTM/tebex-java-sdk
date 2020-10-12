@@ -23,7 +23,7 @@ public class InformationEndpoint {
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @return {@link GeneralInformation}
-     * @see TebexAPI#getServerInformation()
+     * @see TebexAPI#getGeneralInformation()
      * @since 0.0.1-BETA
      */
     @ApiStatus.Internal
