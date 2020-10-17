@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class CheckoutEndpoint {
 
+    private CheckoutEndpoint() { }
+
     /**
      * Creates a URL which will redirect the player to the webstore and add the package to their basket.
      *

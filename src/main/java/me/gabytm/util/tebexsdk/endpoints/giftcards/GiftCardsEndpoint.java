@@ -28,6 +28,8 @@ public class GiftCardsEndpoint {
 
     private static final Type LIST_OF_GIFT_CARDS = new TypeToken<List<GiftCard>>() {}.getType();
 
+    private GiftCardsEndpoint() { }
+
     /**
      * Return an array of all gift cards on your account.
      *

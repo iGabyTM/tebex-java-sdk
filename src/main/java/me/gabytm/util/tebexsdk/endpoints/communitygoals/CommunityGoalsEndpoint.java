@@ -23,6 +23,8 @@ public class CommunityGoalsEndpoint {
 
     private static final Type LIST_OF_COMMUNITY_GOALS = new TypeToken<List<CommunityGoal>>() {}.getType();
 
+    private CommunityGoalsEndpoint() { }
+
     /**
      * Retrieve all community goals created on your account.
      *

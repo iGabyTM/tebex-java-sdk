@@ -22,6 +22,8 @@ import java.lang.reflect.Type;
  */
 public class Responses {
 
+    private Responses() { }
+
     /**
      * Process the {@link Request} and return a {@link TebexResponse} with the given
      * list of objects type.

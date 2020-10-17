@@ -23,6 +23,8 @@ public class SalesEndpoint {
 
     private static final Type LIST_OF_SALES = new TypeToken<List<Sale>>() {}.getType();
 
+    private SalesEndpoint() { }
+
     /**
      * Return an array of all active sales on your account.
      *

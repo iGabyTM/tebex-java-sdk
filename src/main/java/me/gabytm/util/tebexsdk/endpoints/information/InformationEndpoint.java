@@ -17,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InformationEndpoint {
 
+    private InformationEndpoint() { }
+
     /**
      * This endpoint returns general information about the authenticated account and server.
      *

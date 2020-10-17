@@ -23,6 +23,8 @@ public class ListingEndpoint {
 
     private static final Type LIST_OF_CATEGORIES = new TypeToken<List<Category>>(){}.getType();
 
+    private ListingEndpoint() { }
+
     /**
      * Get the categories and packages which should be displayed to players in game.
      *

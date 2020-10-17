@@ -28,6 +28,8 @@ public class CommandQueueEndpoint {
 
     private static final Type LIST_OF_COMMANDS = new TypeToken<List<Command>>() {}.getType();
 
+    private CommandQueueEndpoint() { }
+
     /**
      * List the players who have commands due to be executed when they next login to the game server. This
      * endpoint also returns any offline commands to be processed and the amount of seconds to wait before
