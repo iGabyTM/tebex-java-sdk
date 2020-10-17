@@ -250,9 +250,10 @@ public class TebexAPI {
      * This endpoint returns general information about the authenticated account and server.
      *
      * @return {@link GeneralInformation}
+     * @see InformationEndpoint#getGeneralInformation(String, OkHttpClient) 
      */
     @NotNull
-    public TebexResponse<GeneralInformation> getServerInformation() {
+    public TebexResponse<GeneralInformation> getGeneralInformation() {
         return InformationEndpoint.getGeneralInformation(serverSecretKey, okHttpClient);
     }
 

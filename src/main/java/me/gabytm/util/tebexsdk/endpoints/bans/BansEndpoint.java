@@ -25,6 +25,8 @@ public class BansEndpoint {
 
     private static final Type LIST_OF_BANS = new TypeToken<List<Ban>>() {}.getType();
 
+    private BansEndpoint() { }
+
     /**
      * Returns an array of all bans on your account.
      *

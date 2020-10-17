@@ -6,6 +6,8 @@ import okhttp3.Request;
 
 public class Requests {
 
+    private Requests() { }
+
     public static Request createGetRequest(final String serverSecretKey, final Endpoint endpoint) {
         return createGetRequest(serverSecretKey, endpoint.getUrl());
     }

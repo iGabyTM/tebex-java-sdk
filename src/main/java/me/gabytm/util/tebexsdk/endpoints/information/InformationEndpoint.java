@@ -17,13 +17,15 @@ import org.jetbrains.annotations.NotNull;
  */
 public class InformationEndpoint {
 
+    private InformationEndpoint() { }
+
     /**
      * This endpoint returns general information about the authenticated account and server.
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
      * @return {@link GeneralInformation}
-     * @see TebexAPI#getServerInformation()
+     * @see TebexAPI#getGeneralInformation()
      * @since 0.0.1-BETA
      */
     @ApiStatus.Internal
