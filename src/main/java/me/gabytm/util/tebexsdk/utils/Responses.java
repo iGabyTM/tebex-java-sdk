@@ -47,7 +47,7 @@ public class Responses {
             final JsonObject json = gson.fromJson(response.body().charStream(), JsonObject.class);
 
             if (!response.isSuccessful()) {
-                return TebexResponse.error(json.get("error_message").getAsString());
+                return TebexResponse.error(json.get(Constant.ERROR_MESSAGE).getAsString());
             }
 
             return TebexResponse.of(gson.fromJson(array == null ? json.getAsJsonArray() : json.getAsJsonArray(array), type));
@@ -98,7 +98,7 @@ public class Responses {
             final JsonObject json = gson.fromJson(response.body().charStream(), JsonObject.class);
 
             if (!response.isSuccessful()) {
-                return TebexResponse.error(json.get("error_message").getAsString());
+                return TebexResponse.error(json.get(Constant.ERROR_MESSAGE).getAsString());
             }
 
             return TebexResponse.of(gson.fromJson(json, clazz));

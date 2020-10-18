@@ -27,6 +27,7 @@ import me.gabytm.util.tebexsdk.endpoints.sales.objects.Discount;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Effective;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Sale;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import okhttp3.OkHttpClient;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,13 +36,15 @@ import java.util.List;
 
 public class TebexAPI {
 
-    public static final String SECRET = "X-Tebex-Secret";
+    /**
+     * @deprecated Replaced by {@link Constant#TEBEX_SECRET} since 0.0.2-BETA
+     */
+    @Deprecated
+    public static final String SECRET = Constant.TEBEX_SECRET;
     private static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {
-            }.getType(), new Discount.DiscountTypeDeserializer())
-            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {
-            }.getType(), new Effective.EffectiveTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {}.getType(), new Discount.DiscountTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {}.getType(), new Effective.EffectiveTypeDeserializer())
             .create();
 
     private final String serverSecretKey;
