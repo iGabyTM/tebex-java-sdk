@@ -57,14 +57,14 @@ public enum Endpoint {
     PAYMENTS__PAGED("payments?paged=1"),
 
     /**
-     * @see <a href="https://docs.tebex.io/plugin/endpoints/sales">Tebex Documentation</a>
-     */
-    SALES(),
-
-    /**
      * @see <a href="https://docs.tebex.io/plugin/endpoints/player-lookup">Tebex Documentation</a>
      */
-    USER();
+    PLAYER_LOOKUP("user/"),
+
+    /**
+     * @see <a href="https://docs.tebex.io/plugin/endpoints/sales">Tebex Documentation</a>
+     */
+    SALES();
 
     private final String url;
 
