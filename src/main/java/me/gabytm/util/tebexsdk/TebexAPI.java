@@ -20,6 +20,8 @@ import me.gabytm.util.tebexsdk.endpoints.information.InformationEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.information.objects.GeneralInformation;
 import me.gabytm.util.tebexsdk.endpoints.listing.ListingEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.listing.objects.Category;
+import me.gabytm.util.tebexsdk.endpoints.playerlookup.PlayerLookupEndpoint;
+import me.gabytm.util.tebexsdk.endpoints.playerlookup.objects.PlayerLookup;
 import me.gabytm.util.tebexsdk.endpoints.sales.SalesEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Discount;
 import me.gabytm.util.tebexsdk.endpoints.sales.objects.Effective;
@@ -36,8 +38,10 @@ public class TebexAPI {
     public static final String SECRET = "X-Tebex-Secret";
     private static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {}.getType(), new Discount.DiscountTypeDeserializer())
-            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {}.getType(), new Effective.EffectiveTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {
+            }.getType(), new Discount.DiscountTypeDeserializer())
+            .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {
+            }.getType(), new Effective.EffectiveTypeDeserializer())
             .create();
 
     private final String serverSecretKey;
@@ -235,10 +239,10 @@ public class TebexAPI {
     /**
      * Create a gift card of a specified amount.
      *
-     * @param amount          the currency value of the gift card should have upon creation
-     * @param note            the note that will be stored against the gift card
+     * @param amount the currency value of the gift card should have upon creation
+     * @param note   the note that will be stored against the gift card
      * @return {@link GiftCard}
-     * @see GiftCardsEndpoint#createGiftCard(String, OkHttpClient, double, String) 
+     * @see GiftCardsEndpoint#createGiftCard(String, OkHttpClient, double, String)
      * @since 0.0.1-BETA
      */
     @NotNull
@@ -250,7 +254,7 @@ public class TebexAPI {
      * This endpoint returns general information about the authenticated account and server.
      *
      * @return {@link GeneralInformation}
-     * @see InformationEndpoint#getGeneralInformation(String, OkHttpClient) 
+     * @see InformationEndpoint#getGeneralInformation(String, OkHttpClient)
      */
     @NotNull
     public TebexResponse<GeneralInformation> getGeneralInformation() {
@@ -261,7 +265,7 @@ public class TebexAPI {
      * Get the categories and packages which should be displayed to players in game.
      *
      * @return {@link GeneralInformation}
-     * @see ListingEndpoint#getListing(String, OkHttpClient) 
+     * @see ListingEndpoint#getListing(String, OkHttpClient)
      */
     @NotNull
     public TebexResponse<List<Category>> getListing() {
@@ -277,5 +281,17 @@ public class TebexAPI {
     @NotNull
     public TebexResponse<List<Sale>> getAllSales() {
         return SalesEndpoint.getAllSales(serverSecretKey, okHttpClient);
+    }
+
+    /**
+     * Returns player lookup information (similar to player lookup in control panel). Available on Ultimate and above plans.
+     *
+     * @param player the UUID or username of a player
+     * @return {@link PlayerLookup}
+     * @see PlayerLookupEndpoint#playerLookup(String, OkHttpClient, String)
+     */
+    @NotNull
+    public TebexResponse<PlayerLookup> playerLookup(@NotNull final String player) {
+        return PlayerLookupEndpoint.playerLookup(serverSecretKey, okHttpClient, player);
     }
 }
