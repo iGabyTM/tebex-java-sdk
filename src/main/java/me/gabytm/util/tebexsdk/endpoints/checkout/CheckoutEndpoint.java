@@ -4,6 +4,7 @@ import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.checkout.objects.Checkout;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -28,13 +29,13 @@ public class CheckoutEndpoint {
      * @param username        the username of the player
      * @return {@link Checkout}
      * @since 0.0.1-BETA
-     * @see CheckoutEndpoint#createCheckoutURL(String, OkHttpClient, int, String)
+     * @see TebexAPI#createCheckoutURL(int, String) 
      */
     @ApiStatus.Internal
     @NotNull
     public static TebexResponse<Checkout> createCheckoutURL(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, final int packageId, @NotNull final String username) {
         final Request request = new Request.Builder()
-                .addHeader(TebexAPI.SECRET, serverSecretKey)
+                .addHeader(Constant.TEBEX_SECRET, serverSecretKey)
                 .url(Endpoint.CHECKOUT.getUrl())
                 .post(
                         new FormBody.Builder()
