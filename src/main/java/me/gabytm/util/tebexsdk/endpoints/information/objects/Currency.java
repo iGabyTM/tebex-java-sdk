@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * @author GabyTM
  * @since 0.0.1-BETA
  */
+@SuppressWarnings("unused")
 public class Currency {
 
     @SerializedName("iso_4217") private String iso;

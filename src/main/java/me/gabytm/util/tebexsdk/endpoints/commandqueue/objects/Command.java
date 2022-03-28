@@ -6,6 +6,7 @@ import com.google.gson.annotations.SerializedName;
  * @author GabyTM
  * @since 0.0.1-BETA
  */
+@SuppressWarnings("unused")
 public class Command {
 
     private int id;
