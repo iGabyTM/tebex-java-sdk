@@ -5,6 +5,7 @@ import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.bans.objects.Ban;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
@@ -70,7 +71,7 @@ public class BansEndpoint {
         }
 
         final Request request = new Request.Builder()
-                .addHeader(TebexAPI.SECRET, serverSecretKey)
+                .addHeader(Constant.TEBEX_SECRET, serverSecretKey)
                 .url(Endpoint.BANS.getUrl())
                 .post(formBodyBuilder.build())
                 .build();

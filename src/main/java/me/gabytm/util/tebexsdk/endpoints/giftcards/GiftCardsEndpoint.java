@@ -6,6 +6,7 @@ import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.giftcards.objects.GiftCard;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
@@ -90,7 +91,7 @@ public class GiftCardsEndpoint {
         }
 
         final Request request = new Request.Builder()
-                .header(TebexAPI.SECRET, serverSecretKey)
+                .header(Constant.TEBEX_SECRET, serverSecretKey)
                 .url(Endpoint.GIFT_CARDS.getUrl())
                 .post(formBodyBuilder.build())
                 .build();

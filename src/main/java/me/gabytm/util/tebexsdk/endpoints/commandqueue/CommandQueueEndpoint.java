@@ -7,6 +7,7 @@ import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Command;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.DuePlayers;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.OfflineCommands;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.FormBody;
@@ -109,13 +110,13 @@ public class CommandQueueEndpoint {
      * @see TebexAPI#deleteCommands(int[])
      */
     @ApiStatus.Internal
-    public static void deleteCommands(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, @NotNull int[] commands) {
+    public static void deleteCommands(@NotNull final String serverSecretKey, @NotNull final OkHttpClient client, int @NotNull[] commands) {
         if (commands.length == 0) {
             return;
         }
 
         final Request request = new Request.Builder()
-                .addHeader(TebexAPI.SECRET, serverSecretKey)
+                .addHeader(Constant.TEBEX_SECRET, serverSecretKey)
                 .url(Endpoint.COMMAND_QUEUE__QUEUE.getUrl())
                 .delete(
                         new FormBody.Builder()
