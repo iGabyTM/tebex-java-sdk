@@ -1,1 +1,15 @@
 # tebex-java-sdk
+Endpoints:  
+- [x] [Information](https://docs.tebex.io/plugin/endpoints/information)
+- [x] [Command Queue](https://docs.tebex.io/plugin/endpoints/command-queue)
+- [ ] [Listing](https://docs.tebex.io/plugin/endpoints/listing)
+- [ ] [Packages](https://docs.tebex.io/plugin/endpoints/packages)
+- [ ] [Community Goals](https://docs.tebex.io/plugin/endpoints/community-goals)
+- [ ] [Payments](https://docs.tebex.io/plugin/endpoints/payments)
+- [ ] [Checkout](https://docs.tebex.io/plugin/endpoints/checkout)
+- [ ] [Gift Cards](https://docs.tebex.io/plugin/endpoints/gift-cards)
+- [ ] [Coupons](https://docs.tebex.io/plugin/endpoints/coupons)
+- [ ] [Bans](https://docs.tebex.io/plugin/endpoints/bans)
+- [ ] [Sales](https://docs.tebex.io/plugin/endpoints/sales)
+- [ ] [Player Lookup](https://docs.tebex.io/plugin/endpoints/player-lookup)
+- [ ] [Customer Purchases](https://docs.tebex.io/plugin/endpoints/customer-purchases)
