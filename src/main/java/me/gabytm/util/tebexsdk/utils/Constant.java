@@ -27,4 +27,12 @@ public class Constant {
      */
     public static final String TEBEX_SECRET = "X-Tebex-Secret";
 
+    /**
+     * The date format used by Tebex
+     *
+     * @see com.google.gson.GsonBuilder#setDateFormat(String)
+     * @see 0.0.3-BETA
+     */
+    public static final String DATE_FORMAT = "yyyy-MM-dd hh:mm:ss";
+
 }

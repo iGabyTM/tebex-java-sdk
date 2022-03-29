@@ -1,17 +1,23 @@
 package me.gabytm.util.tebexsdk.endpoints.communitygoals;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.communitygoals.objects.CommunityGoal;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
+import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Requests;
 import me.gabytm.util.tebexsdk.utils.Responses;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.Response;
 import org.jetbrains.annotations.ApiStatus;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.List;
 
@@ -38,7 +44,20 @@ public class CommunityGoalsEndpoint {
     @NotNull
     public static TebexResponse<List<CommunityGoal>> getAllGoals(final String serverSecretKey, final OkHttpClient client) {
         final Request request = Requests.createGetRequest(serverSecretKey, Endpoint.COMMUNITY_GOALS);
-        return Responses.getList(request, client, LIST_OF_COMMUNITY_GOALS);
+        try (final Response response = client.newCall(request).execute()) {
+            final Gson gson = TebexAPI.getGson();
+
+            if (!response.isSuccessful()) {
+                final JsonObject json = gson.fromJson(response.body().charStream(), JsonObject.class);
+                return TebexResponse.error(json.get(Constant.ERROR_MESSAGE).getAsString());
+            }
+
+            return TebexResponse.of(gson.fromJson(response.body().charStream(), LIST_OF_COMMUNITY_GOALS));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return TebexResponse.empty();
     }
 
     /**

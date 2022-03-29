@@ -1,14 +1,20 @@
 package me.gabytm.util.tebexsdk.endpoints.communitygoals.objects;
 
+import org.jetbrains.annotations.ApiStatus;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Date;
+
 /**
  * @author GabyTM
  * @since 0.0.1-BETA
  */
+@SuppressWarnings("unused")
 public class CommunityGoal {
 
     private int id;
-    private String createdAt;
-    private String updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
     private int account;
     private String name;
     private String description;
@@ -16,7 +22,7 @@ public class CommunityGoal {
     private double target;
     private double current;
     private int repeatable;
-    private String lastAchieved;
+    private Date lastAchieved;
     private int timesAchieved;
     private String status;
     private int sale;
@@ -25,11 +31,11 @@ public class CommunityGoal {
         return id;
     }
 
-    public String getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public String getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
@@ -41,6 +47,11 @@ public class CommunityGoal {
         return name;
     }
 
+    /**
+     * Gets the description of the goal as entered on the control panel (contains HTML tags)
+     *
+     * @return the description of the goal
+     */
     public String getDescription() {
         return description;
     }
@@ -57,11 +68,21 @@ public class CommunityGoal {
         return current;
     }
 
+    /**
+     * @deprecated the value is actually a boolean but represented as an int, see {@link #isRepeatable}
+     */
+    @ApiStatus.ScheduledForRemoval(inVersion = "0.0.4-BETA")
+    @Deprecated
     public int getRepeatable() {
         return repeatable;
     }
 
-    public String getLastAchieved() {
+    public boolean isRepeatable() {
+        return repeatable == 1;
+    }
+
+    @Nullable
+    public Date getLastAchieved() {
         return lastAchieved;
     }
 

@@ -12,6 +12,7 @@ import me.gabytm.util.tebexsdk.endpoints.commandqueue.CommandQueueEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Command;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.DuePlayers;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.OfflineCommands;
+import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Player;
 import me.gabytm.util.tebexsdk.endpoints.communitygoals.CommunityGoalsEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.communitygoals.objects.CommunityGoal;
 import me.gabytm.util.tebexsdk.endpoints.giftcards.GiftCardsEndpoint;
@@ -45,6 +46,7 @@ public class TebexAPI {
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .registerTypeAdapter(new TypeToken<Discount.DiscountType>() {}.getType(), new Discount.DiscountTypeDeserializer())
             .registerTypeAdapter(new TypeToken<Effective.EffectiveType>() {}.getType(), new Effective.EffectiveTypeDeserializer())
+            .setDateFormat(Constant.DATE_FORMAT)
             .create();
 
     private final String serverSecretKey;
@@ -173,7 +175,7 @@ public class TebexAPI {
      * These commands should only be executed when the player is online and all the conditions have been met
      * (such as if the player has the required amount of inventory slots).
      *
-     * @param playerId the ID of the player you want to retrieve the online commands for
+     * @param playerId the {@link Player#getId() ID} of the player you want to retrieve the online commands for
      * @return {@link OfflineCommands}
      */
     @NotNull
@@ -186,10 +188,10 @@ public class TebexAPI {
      * <br><br>
      * An empty response with the status code of <b>204 No Content</b> will be returned on completion.
      *
-     * @param commands an array of one or more command IDs to delete
+     * @param commands an array of one or more command {@link Command#getId() IDs} to delete
      * @see CommandQueueEndpoint#deleteCommands(String, OkHttpClient, int[])
      */
-    public void deleteCommands(@NotNull int[] commands) {
+    public void deleteCommands(int @NotNull[] commands) {
         CommandQueueEndpoint.deleteCommands(serverSecretKey, okHttpClient, commands);
     }
 

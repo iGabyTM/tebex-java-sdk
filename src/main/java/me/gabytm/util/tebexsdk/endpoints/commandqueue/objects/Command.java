@@ -1,7 +1,6 @@
 package me.gabytm.util.tebexsdk.endpoints.commandqueue.objects;
 
 import com.google.gson.annotations.SerializedName;
-import okhttp3.OkHttpClient;
 
 /**
  * @author GabyTM
@@ -17,7 +16,7 @@ public class Command {
     private Player player;
 
     /**
-     * @see me.gabytm.util.tebexsdk.endpoints.commandqueue.CommandQueueEndpoint#deleteCommands(String, OkHttpClient, int[])
+     * @see me.gabytm.util.tebexsdk.TebexAPI#deleteCommands(int[])
      */
     public int getId() {
         return id;
