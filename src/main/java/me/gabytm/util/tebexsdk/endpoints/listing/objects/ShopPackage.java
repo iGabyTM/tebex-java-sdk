@@ -6,6 +6,7 @@ import org.jetbrains.annotations.ApiStatus;
  * @author GabyTM
  * @since 0.0.1-BETA
  */
+@SuppressWarnings("unused")
 public class ShopPackage {
 
     private int id;
