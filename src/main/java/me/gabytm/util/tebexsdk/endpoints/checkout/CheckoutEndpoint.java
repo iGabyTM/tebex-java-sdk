@@ -3,6 +3,7 @@ package me.gabytm.util.tebexsdk.endpoints.checkout;
 import me.gabytm.util.tebexsdk.TebexAPI;
 import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.checkout.objects.Checkout;
+import me.gabytm.util.tebexsdk.endpoints.listing.objects.ShopPackage;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
 import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Responses;
@@ -25,11 +26,11 @@ public class CheckoutEndpoint {
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
-     * @param packageId       the ID of the package the players want to purchase
+     * @param packageId       the {@link ShopPackage#getId() ID} of the package the players want to purchase
      * @param username        the username of the player
      * @return {@link Checkout}
      * @since 0.0.1-BETA
-     * @see TebexAPI#createCheckoutURL(int, String) 
+     * @see TebexAPI#createCheckoutURL(int, String)
      */
     @ApiStatus.Internal
     @NotNull

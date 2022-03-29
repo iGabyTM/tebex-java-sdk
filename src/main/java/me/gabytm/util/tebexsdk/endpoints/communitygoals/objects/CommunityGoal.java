@@ -27,6 +27,9 @@ public class CommunityGoal {
     private String status;
     private int sale;
 
+    /**
+     * @see me.gabytm.util.tebexsdk.TebexAPI#getGoal(int)
+     */
     public int getId() {
         return id;
     }

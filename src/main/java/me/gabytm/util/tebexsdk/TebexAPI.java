@@ -21,6 +21,7 @@ import me.gabytm.util.tebexsdk.endpoints.information.InformationEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.information.objects.GeneralInformation;
 import me.gabytm.util.tebexsdk.endpoints.listing.ListingEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.listing.objects.Category;
+import me.gabytm.util.tebexsdk.endpoints.listing.objects.ShopPackage;
 import me.gabytm.util.tebexsdk.endpoints.playerlookup.PlayerLookupEndpoint;
 import me.gabytm.util.tebexsdk.endpoints.playerlookup.objects.PlayerLookup;
 import me.gabytm.util.tebexsdk.endpoints.sales.SalesEndpoint;
@@ -123,7 +124,7 @@ public class TebexAPI {
     /**
      * Creates a URL which will redirect the player to the webstore and add the package to their basket.
      *
-     * @param packageId the ID of the package the players want to purchase
+     * @param packageId the {@link ShopPackage#getId() ID} of the package the players want to purchase
      * @param username  the username of the player
      * @return {@link Checkout}
      * @see CheckoutEndpoint#createCheckoutURL(String, OkHttpClient, int, String)
@@ -209,7 +210,7 @@ public class TebexAPI {
     /**
      * Retrieve an individual community goal on your account
      *
-     * @param goalId the ID of a community goal
+     * @param goalId the {@link CommunityGoal#getId() ID} of a community goal
      * @return {@link CommunityGoal}
      * @see CommunityGoalsEndpoint#getGoal(String, OkHttpClient, int)
      */

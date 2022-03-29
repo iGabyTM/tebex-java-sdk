@@ -17,6 +17,9 @@ public class ShopPackage {
     private Sale sale;
     private int guiItem;
 
+    /**
+     * @see me.gabytm.util.tebexsdk.TebexAPI#createCheckoutURL(int, String)
+     */
     public int getId() {
         return id;
     }
