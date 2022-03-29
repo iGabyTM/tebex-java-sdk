@@ -14,6 +14,7 @@ public class Category {
     private boolean onlySubcategories;
     private List<Category> subcategories;
     private List<ShopPackage> packages;
+    private String guiItem;
 
     public int getId() {
         return id;
@@ -37,6 +38,10 @@ public class Category {
 
     public List<ShopPackage> getPackages() {
         return packages;
+    }
+
+    public String getGuiItem() {
+        return guiItem;
     }
 
 }
