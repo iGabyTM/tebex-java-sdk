@@ -65,6 +65,7 @@ public class TebexDate {
         NOVEMBER(30),
         DECEMBER(31);
 
+        private static final int FEBRUARY_LEAP_YEAR_DAYS = 29;
         private final String order;
         private final int days;
 
@@ -79,14 +80,30 @@ public class TebexDate {
 
         /**
          * Get the number of days of a month. The year parameter is only used
-         * for {@link Month#FEBRUARY} whose number of days depends if the year is leap (29) or not (28)
+         * for {@link Month#FEBRUARY} whose number of days depends on if the year is leap (29) or not (28)
          *
          * @param year year
          * @return numbers of days
          * @see <a href="https://en.wikipedia.org/wiki/Leap_year">Leap Year</a>
          */
         public int getDays(final int year) {
-            return this == FEBRUARY ? (year % 4 == 0 ? 29 : days) : days;
+            if (this == FEBRUARY) {
+                if (year % 4 != 0) {
+                    return days;
+                }
+
+                if (year % 100 != 0) {
+                    return FEBRUARY_LEAP_YEAR_DAYS;
+                }
+
+                if (year % 400 != 0) {
+                    return days;
+                }
+
+                return FEBRUARY_LEAP_YEAR_DAYS;
+            }
+
+            return days;
         }
     }
 }
