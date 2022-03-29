@@ -6,6 +6,7 @@ import me.gabytm.util.tebexsdk.endpoints.Endpoint;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Command;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.DuePlayers;
 import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.OfflineCommands;
+import me.gabytm.util.tebexsdk.endpoints.commandqueue.objects.Player;
 import me.gabytm.util.tebexsdk.objects.TebexResponse;
 import me.gabytm.util.tebexsdk.utils.Constant;
 import me.gabytm.util.tebexsdk.utils.Requests;
@@ -86,7 +87,7 @@ public class CommandQueueEndpoint {
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
-     * @param playerId        the ID of the player you want to retrieve the online commands for
+     * @param playerId        the {@link Player#getId() ID} of the player you want to retrieve the online commands for
      * @return list of {@link Command}s
      * @since 0.0.1-BETA
      * @see TebexAPI#getOnlineCommands(int)
@@ -105,7 +106,7 @@ public class CommandQueueEndpoint {
      *
      * @param serverSecretKey {@link TebexAPI#getServerSecretKey()}
      * @param client          {@link OkHttpClient}
-     * @param commands        an array of one or more command IDs to delete
+     * @param commands        an array of one or more command {@link Command#getId() IDs} to delete
      * @since 0.0.1-BETA
      * @see TebexAPI#deleteCommands(int[])
      */
